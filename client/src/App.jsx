@@ -5,7 +5,8 @@ import PanelEstadisticas from './components/PanelEstadisticas';
 import ListaEstados from './components/ListaEstados';
 import './App.css';
 
-const socket = io('http://localhost:3001');
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3001';
+const socket = io(SOCKET_URL);
 
 function App() {
   const [nombre, setNombre] = useState('');

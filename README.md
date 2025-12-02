@@ -85,8 +85,32 @@ Bateria/
 
 ## 📝 Notas
 
-- Los datos se almacenan en memoria (se pierden al reiniciar el servidor)
-- Para producción, considera usar una base de datos persistente
-- El servidor corre en el puerto 3001
+- Los datos se almacenan en un archivo JSON (`server/datos.json`) y persisten entre reinicios
+- El servidor corre en el puerto 3001 (desarrollo) o el asignado por Railway (producción)
 - El cliente corre en el puerto 5173
+
+## 🚀 Despliegue en Railway
+
+### Configuración del Backend en Railway
+
+1. **Conecta tu repositorio** a Railway
+2. **Configura el Root Directory**: Si subiste todo el proyecto, deja vacío. Si solo subiste `server/`, pon `server`
+3. **Start Command**: `cd server && npm start` (o `npm start` si el root es `server/`)
+4. **Variables de Entorno**:
+   - `NODE_ENV` = `production`
+   - `ALLOWED_ORIGINS` = `https://tu-frontend.vercel.app` (URLs separadas por comas)
+   - `PORT` se asigna automáticamente (no configurar)
+
+### Configuración del Frontend
+
+1. Crea un archivo `.env` en la carpeta `client/`:
+```env
+VITE_SOCKET_URL=https://tu-app.railway.app
+```
+
+2. O configura la variable en Vercel (si usas Vercel):
+   - Variable: `VITE_SOCKET_URL`
+   - Valor: La URL de tu servidor Railway
+
+### Ver archivo ENV_SETUP.md para más detalles
 
