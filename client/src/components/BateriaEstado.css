@@ -1,0 +1,309 @@
+.bateria-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.bateria-titulo {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.bateria-visual {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* Cuerpo de la batería */
+.bateria-cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 350px;
+  border: 5px solid #2c3e50;
+  border-radius: 12px;
+  padding: 3px;
+  background: #ecf0f1;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+/* Terminal positivo de la batería - en la parte superior central */
+.bateria-terminal {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 15px;
+  background: #2c3e50;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 15;
+  border: 2px solid #1a252f;
+  border-bottom: none;
+}
+
+/* Cada sección de la batería */
+.bateria-seccion {
+  flex: 1;
+  min-height: 90px;
+  background: var(--color-nivel);
+  opacity: 0.6;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: visible;
+  border: 2px solid transparent;
+  display: grid;
+  grid-template-columns: 50px 1fr 50px;
+  align-items: center;
+  padding: 0;
+}
+
+.bateria-seccion:hover {
+  opacity: 0.8;
+  transform: scale(1.02);
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+}
+
+.bateria-seccion.seleccionado {
+  opacity: 1 !important;
+  border-color: #fff;
+  border-width: 4px;
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.6), 
+              inset 0 0 30px rgba(255, 255, 255, 0.3),
+              0 0 0 3px rgba(255, 255, 255, 0.5);
+  animation: brillo 1.5s ease-in-out infinite;
+  z-index: 10;
+  transform: scale(1.03);
+}
+
+.bateria-seccion-vacia {
+  background: #ecf0f1;
+  cursor: default;
+  opacity: 0.6;
+}
+
+.bateria-seccion-vacia:hover {
+  transform: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+@keyframes brillo {
+  0%, 100% {
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.6), 
+                inset 0 0 30px rgba(255, 255, 255, 0.3),
+                0 0 0 3px rgba(255, 255, 255, 0.5);
+    transform: scale(1.03);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.7), 
+                inset 0 0 40px rgba(255, 255, 255, 0.4),
+                0 0 0 5px rgba(255, 255, 255, 0.7);
+    transform: scale(1.05);
+  }
+}
+
+/* Porcentajes a los lados */
+.seccion-porcentaje-izq,
+.seccion-porcentaje-der {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: white;
+  text-align: center;
+  padding: 0 5px;
+  user-select: none;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.bateria-seccion-vacia .seccion-porcentaje-izq,
+.bateria-seccion-vacia .seccion-porcentaje-der {
+  color: #95a5a6;
+}
+
+/* Contenido de la sección */
+.seccion-contenido {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  position: relative;
+  min-height: 70px;
+}
+
+/* Stickers circulares con iniciales */
+.seccion-iniciales {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.sticker-inicial {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  background: linear-gradient(135deg, var(--color-sticker, #3498db) 0%, var(--color-sticker, #2980b9) 100%);
+  animation: stickerAparecer 0.5s ease;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+.sticker-inicial:hover {
+  transform: scale(1.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  z-index: 20;
+}
+
+@keyframes stickerAparecer {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Indicador de selección */
+.seccion-seleccion-indicador {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.pulso {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  animation: pulso-animacion 1.5s ease-in-out infinite;
+}
+
+@keyframes pulso-animacion {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3);
+    opacity: 0;
+  }
+}
+
+.bateria-leyenda {
+  text-align: center;
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  color: #666;
+  font-size: 0.95rem;
+  border: 2px solid #e0e0e0;
+}
+
+.bateria-leyenda p {
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .bateria-container {
+    max-width: 100%;
+  }
+
+  .bateria-cuerpo {
+    width: 280px;
+  }
+
+  .bateria-terminal {
+    width: 35px;
+    height: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .bateria-seccion {
+    min-height: 75px;
+    grid-template-columns: 40px 1fr 40px;
+  }
+
+  .seccion-porcentaje-izq,
+  .seccion-porcentaje-der {
+    font-size: 0.9rem;
+  }
+
+  .sticker-inicial {
+    width: 38px;
+    height: 38px;
+    font-size: 0.85rem;
+  }
+
+  .bateria-titulo {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bateria-cuerpo {
+    width: 240px;
+  }
+
+  .bateria-seccion {
+    grid-template-columns: 35px 1fr 35px;
+    min-height: 65px;
+  }
+
+  .seccion-porcentaje-izq,
+  .seccion-porcentaje-der {
+    font-size: 0.8rem;
+  }
+
+  .sticker-inicial {
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
+  }
+}

@@ -1,0 +1,139 @@
+.lista-estados {
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 2px solid #e0e0e0;
+}
+
+.lista-titulo {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.lista-vacia {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+}
+
+.lista-vacia-sub {
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.estados-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.estado-item {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.estado-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--color-estado);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+
+.estado-item:hover::before {
+  transform: scaleX(1);
+}
+
+.estado-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-estado);
+}
+
+.estado-item.nuevo {
+  animation: slideIn 0.5s ease;
+  border-color: var(--color-estado);
+  border-width: 3px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
+  }
+  50% {
+    transform: translateY(5px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.estado-iniciales {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.estado-info {
+  text-align: center;
+  width: 100%;
+}
+
+.estado-nombre {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  word-break: break-word;
+}
+
+.estado-emoji {
+  font-size: 1.8rem;
+}
+
+.estado-tiempo {
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: auto;
+}
+
+@media (max-width: 768px) {
+  .estados-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+
+  .estado-item {
+    padding: 12px;
+  }
+
+  .estado-iniciales {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
