@@ -52,7 +52,8 @@ let estadisticas = {
   feliz: 0,
   neutral: 0,
   triste: 0,
-  muyTriste: 0
+  muyTriste: 0,
+  cero: 0
 };
 
 // Función para cargar datos desde el archivo JSON
@@ -119,11 +120,14 @@ function actualizarEstadisticas() {
     feliz: 0,
     neutral: 0,
     triste: 0,
-    muyTriste: 0
+    muyTriste: 0,
+    cero: 0
   };
   
   estadosAnimo.forEach(estado => {
-    estadisticas[estado.nivel]++;
+    if (estadisticas.hasOwnProperty(estado.nivel)) {
+      estadisticas[estado.nivel]++;
+    }
   });
 }
 
@@ -169,6 +173,23 @@ io.on('connection', (socket) => {
     // Emitir a todos los clientes
     io.emit('estado-actualizado', nuevoEstado);
     io.emit('estadisticas-actualizadas', estadisticas);
+  });
+
+  // Reiniciar todas las votaciones
+  socket.on('reiniciar-votaciones', async () => {
+    console.log('🔄 Reiniciando todas las votaciones...');
+    estadosAnimo = [];
+    actualizarEstadisticas();
+    await guardarDatos();
+    
+    // Emitir a todos los clientes
+    io.emit('votaciones-reiniciadas');
+    io.emit('estado-actual', {
+      estados: [],
+      estadisticas: estadisticas
+    });
+    io.emit('estadisticas-actualizadas', estadisticas);
+    console.log('✅ Votaciones reiniciadas');
   });
 
   // Desconexión - NO eliminamos el estado para que persista

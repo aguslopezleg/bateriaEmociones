@@ -19,7 +19,8 @@ function App() {
     feliz: 0,
     neutral: 0,
     triste: 0,
-    muyTriste: 0
+    muyTriste: 0,
+    cero: 0
   });
   const [estadosRecientes, setEstadosRecientes] = useState([]);
   const [haEnviado, setHaEnviado] = useState(false);
@@ -46,10 +47,25 @@ function App() {
       setEstadisticas(nuevasEstadisticas);
     });
 
+    socket.on('votaciones-reiniciadas', () => {
+      setEstadosRecientes([]);
+      setEstadisticas({
+        muyFeliz: 0,
+        feliz: 0,
+        neutral: 0,
+        triste: 0,
+        muyTriste: 0,
+        cero: 0
+      });
+      setEstadoSeleccionado(null);
+      setHaEnviado(false);
+    });
+
     return () => {
       socket.off('estado-actual');
       socket.off('estado-actualizado');
       socket.off('estadisticas-actualizadas');
+      socket.off('votaciones-reiniciadas');
     };
   }, []);
 
@@ -70,8 +86,24 @@ function App() {
 
   const nombreValido = nombre && nombre.trim() !== '';
 
+  const handleReiniciarVotaciones = () => {
+    if (window.confirm('¿Estás seguro de que quieres reiniciar todas las votaciones? Esta acción no se puede deshacer.')) {
+      socket.emit('reiniciar-votaciones');
+      setMostrarBotonReset(false);
+    }
+  };
+
   return (
     <div className="app">
+      {/* Botón para reiniciar votaciones */}
+      <button 
+        className="btn-reset-oculto"
+        onClick={handleReiniciarVotaciones}
+        title="Reiniciar todas las votaciones (Ctrl+Shift+R)"
+      >
+        🔄
+      </button>
+      
       <div className="app-container">
         <header className="app-header">
           <h1>🔋 Batería de Estado de Ánimo</h1>

@@ -2,11 +2,12 @@ import './BateriaEstado.css';
 
 const BateriaEstado = ({ estadoSeleccionado, onSeleccionar, estadosActuales = [], deshabilitado = false }) => {
   const niveles = [
-    { id: 'muyFeliz', porcentaje: 100, label: 'Muy Feliz', emoji: '😄', color: '#00C853' },
-    { id: 'feliz', porcentaje: 80, label: 'Feliz', emoji: '😊', color: '#4CAF50' },
-    { id: 'neutral', porcentaje: 60, label: 'Neutral', emoji: '😐', color: '#FFC107' },
-    { id: 'triste', porcentaje: 40, label: 'Triste', emoji: '😔', color: '#FF9800' },
-    { id: 'muyTriste', porcentaje: 20, label: 'Muy Triste', emoji: '😢', color: '#F44336' }
+    { id: 'muyFeliz', porcentaje: 100, label: 'Muy Feliz', emoji: '😄', color: '#00E676' },
+    { id: 'feliz', porcentaje: 80, label: 'Feliz', emoji: '😊', color: '#00C853' },
+    { id: 'neutral', porcentaje: 60, label: 'Neutral', emoji: '😐', color: '#FFD600' },
+    { id: 'triste', porcentaje: 40, label: 'Triste', emoji: '😔', color: '#FF6F00' },
+    { id: 'muyTriste', porcentaje: 20, label: 'Muy Triste', emoji: '😢', color: '#D32F2F' },
+    { id: 'cero', porcentaje: 0, label: 'Sin Energía', emoji: '😴', color: '#BDBDBD' }
   ];
 
   // Obtener usuarios por nivel
@@ -93,13 +94,6 @@ const BateriaEstado = ({ estadoSeleccionado, onSeleccionar, estadosActuales = []
               </div>
             );
           })}
-          
-          {/* Sección 0% (vacía) */}
-          <div className="bateria-seccion bateria-seccion-vacia">
-            <div className="seccion-porcentaje-izq">0%</div>
-            <div className="seccion-contenido"></div>
-            <div className="seccion-porcentaje-der">0%</div>
-          </div>
         </div>
       </div>
       

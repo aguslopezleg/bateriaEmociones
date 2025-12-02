@@ -162,6 +162,39 @@
   transform: translateY(-1px);
 }
 
+.btn-reset-oculto {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  background: rgba(231, 76, 60, 0.8);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+}
+
+.btn-reset-oculto:hover {
+  background: rgba(231, 76, 60, 1);
+  transform: translateY(-2px) scale(1.1);
+  box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6);
+}
+
+.btn-reset-oculto:active {
+  transform: translateY(0) scale(0.95);
+}
+
 @media (max-width: 1024px) {
   .app-content {
     grid-template-columns: 1fr;

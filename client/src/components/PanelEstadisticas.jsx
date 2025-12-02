@@ -7,11 +7,12 @@ const PanelEstadisticas = ({ estadisticas }) => {
   const total = Object.values(estadisticas).reduce((sum, val) => sum + val, 0);
 
   const niveles = [
-    { id: 'muyFeliz', label: 'Muy Feliz', emoji: '😄', color: '#27ae60' },
-    { id: 'feliz', label: 'Feliz', emoji: '😊', color: '#2ecc71' },
-    { id: 'neutral', label: 'Neutral', emoji: '😐', color: '#f1c40f' },
-    { id: 'triste', label: 'Triste', emoji: '😔', color: '#f39c12' },
-    { id: 'muyTriste', label: 'Muy Triste', emoji: '😢', color: '#e74c3c' }
+    { id: 'muyFeliz', label: 'Muy Feliz', emoji: '😄', color: '#00E676' },
+    { id: 'feliz', label: 'Feliz', emoji: '😊', color: '#00C853' },
+    { id: 'neutral', label: 'Neutral', emoji: '😐', color: '#FFD600' },
+    { id: 'triste', label: 'Triste', emoji: '😔', color: '#FF6F00' },
+    { id: 'muyTriste', label: 'Muy Triste', emoji: '😢', color: '#D32F2F' },
+    { id: 'cero', label: 'Sin Energía', emoji: '😴', color: '#BDBDBD' }
   ];
 
   useEffect(() => {
