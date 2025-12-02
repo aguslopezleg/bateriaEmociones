@@ -1,6 +1,6 @@
 import './BateriaEstado.css';
 
-const BateriaEstado = ({ estadoSeleccionado, onSeleccionar, estadosActuales = [] }) => {
+const BateriaEstado = ({ estadoSeleccionado, onSeleccionar, estadosActuales = [], deshabilitado = false }) => {
   const niveles = [
     { id: 'muyFeliz', porcentaje: 100, label: 'Muy Feliz', emoji: '😄', color: '#00C853' },
     { id: 'feliz', porcentaje: 80, label: 'Feliz', emoji: '😊', color: '#4CAF50' },
@@ -51,8 +51,8 @@ const BateriaEstado = ({ estadoSeleccionado, onSeleccionar, estadosActuales = []
             return (
               <div
                 key={nivel.id}
-                className={`bateria-seccion ${estaSeleccionado ? 'seleccionado' : ''} ${tieneUsuarios ? 'con-usuarios' : ''}`}
-                onClick={() => onSeleccionar(nivel.id)}
+                className={`bateria-seccion ${estaSeleccionado ? 'seleccionado' : ''} ${tieneUsuarios ? 'con-usuarios' : ''} ${deshabilitado ? 'deshabilitado' : ''}`}
+                onClick={() => !deshabilitado && onSeleccionar(nivel.id)}
                 style={{
                   '--color-nivel': nivel.color
                 }}
@@ -105,7 +105,11 @@ const BateriaEstado = ({ estadoSeleccionado, onSeleccionar, estadosActuales = []
       
       {/* Leyenda */}
       <div className="bateria-leyenda">
-        <p>💡 Haz clic en cualquier sección para colocar tu sticker</p>
+        {deshabilitado ? (
+          <p>⚠️ Ingresa tu nombre arriba para poder votar</p>
+        ) : (
+          <p>💡 Haz clic en cualquier sección para colocar tu sticker</p>
+        )}
       </div>
     </div>
   );

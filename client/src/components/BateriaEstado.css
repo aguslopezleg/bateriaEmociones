@@ -102,6 +102,19 @@
   box-shadow: none;
 }
 
+.bateria-seccion.deshabilitado {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(50%);
+}
+
+.bateria-seccion.deshabilitado:hover {
+  transform: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+
 @keyframes brillo {
   0%, 100% {
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.6), 

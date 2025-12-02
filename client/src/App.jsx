@@ -54,14 +54,21 @@ function App() {
   }, []);
 
   const handleSeleccionarEstado = (nivel) => {
+    // No permitir votar si no hay nombre
+    if (!nombre || nombre.trim() === '') {
+      return;
+    }
+    
     setEstadoSeleccionado(nivel);
     // Enviar automáticamente cuando se selecciona
     socket.emit('nuevo-estado', {
-      nombre: nombre || 'Anónimo',
+      nombre: nombre.trim(),
       nivel: nivel
     });
     setHaEnviado(true);
   };
+
+  const nombreValido = nombre && nombre.trim() !== '';
 
   return (
     <div className="app">
@@ -75,21 +82,28 @@ function App() {
           <div className="main-panel">
             <div className="formulario">
               <div className="input-group">
-                <label htmlFor="nombre">Tu nombre (opcional):</label>
+                <label htmlFor="nombre">
+                  Tu nombre <span className="requerido">*</span>:
+                </label>
                 <input
                   id="nombre"
                   type="text"
                   placeholder="Ej: Juan Pérez"
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
-                  className="input-nombre"
+                  className={`input-nombre ${!nombreValido && nombre.length > 0 ? 'error' : ''}`}
+                  required
                 />
+                {!nombreValido && (
+                  <p className="mensaje-error">Por favor, ingresa tu nombre para votar</p>
+                )}
               </div>
 
               <BateriaEstado
                 estadoSeleccionado={estadoSeleccionado}
                 onSeleccionar={handleSeleccionarEstado}
                 estadosActuales={estadosRecientes}
+                deshabilitado={!nombreValido}
               />
 
               {haEnviado && (
