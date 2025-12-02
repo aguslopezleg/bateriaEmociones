@@ -89,28 +89,31 @@ Bateria/
 - El servidor corre en el puerto 3001 (desarrollo) o el asignado por Railway (producción)
 - El cliente corre en el puerto 5173
 
-## 🚀 Despliegue en Railway
+## 🚀 Despliegue en Railway (Todo en uno)
 
-### Configuración del Backend en Railway
+### Configuración en Railway
 
 1. **Conecta tu repositorio** a Railway
-2. **Configura el Root Directory**: Si subiste todo el proyecto, deja vacío. Si solo subiste `server/`, pon `server`
-3. **Start Command**: `cd server && npm start` (o `npm start` si el root es `server/`)
-4. **Variables de Entorno**:
+2. **Root Directory**: Deja vacío (todo el proyecto)
+3. **Variables de Entorno**:
    - `NODE_ENV` = `production`
-   - `ALLOWED_ORIGINS` = `https://tu-frontend.vercel.app` (URLs separadas por comas)
    - `PORT` se asigna automáticamente (no configurar)
+   - `ALLOWED_ORIGINS` no es necesario (el frontend y backend están en el mismo dominio)
 
-### Configuración del Frontend
+4. **Build y Start**:
+   - Railway ejecutará automáticamente: `npm run install-all && npm run build && npm start`
+   - Esto instalará dependencias, construirá el frontend y iniciará el servidor
 
-1. Crea un archivo `.env` en la carpeta `client/`:
-```env
-VITE_SOCKET_URL=https://tu-app.railway.app
-```
+### Cómo funciona
 
-2. O configura la variable en Vercel (si usas Vercel):
-   - Variable: `VITE_SOCKET_URL`
-   - Valor: La URL de tu servidor Railway
+- El servidor construye el frontend automáticamente durante el build
+- El servidor Express sirve los archivos estáticos del frontend
+- Socket.io funciona en el mismo dominio
+- Todo está en una sola URL de Railway
 
-### Ver archivo ENV_SETUP.md para más detalles
+### Notas
+
+- No necesitas configurar `VITE_SOCKET_URL` - el cliente detecta automáticamente el mismo dominio en producción
+- El archivo `railway.json` ya está configurado con los comandos correctos
+- Los datos se guardan en `server/datos.json` y persisten entre reinicios
 

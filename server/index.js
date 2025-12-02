@@ -178,8 +178,38 @@ io.on('connection', (socket) => {
   });
 });
 
+// Configurar servidor de archivos estáticos (solo en producción)
+async function configurarFrontendEstatico() {
+  if (process.env.NODE_ENV === 'production') {
+    const clientBuildPath = path.join(__dirname, '..', 'client', 'dist');
+    
+    try {
+      await fs.access(clientBuildPath);
+      app.use(express.static(clientBuildPath));
+      
+      // Para todas las rutas que no sean socket.io, servir el index.html (SPA)
+      // Esto debe ir al final, después de todas las otras rutas
+      app.get('*', (req, res, next) => {
+        // No servir index.html para rutas de socket.io
+        if (req.path.startsWith('/socket.io')) {
+          return next();
+        }
+        res.sendFile(path.join(clientBuildPath, 'index.html'), (err) => {
+          if (err) {
+            res.status(500).send('Error loading frontend');
+          }
+        });
+      });
+      console.log('✅ Frontend estático configurado desde:', clientBuildPath);
+    } catch (error) {
+      console.warn('⚠️  No se encontró el build del frontend. Solo servidor API disponible.');
+    }
+  }
+}
+
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, async () => {
+  await configurarFrontendEstatico();
   console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
   console.log(`📁 Datos guardados en: ${DATA_FILE}`);
   console.log(`🌍 Entorno: ${process.env.NODE_ENV || 'development'}`);

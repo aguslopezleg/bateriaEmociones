@@ -5,7 +5,10 @@ import PanelEstadisticas from './components/PanelEstadisticas';
 import ListaEstados from './components/ListaEstados';
 import './App.css';
 
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3001';
+// En producción, usar la misma URL (mismo dominio)
+// En desarrollo, usar localhost
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 
+  (import.meta.env.PROD ? window.location.origin : 'http://localhost:3001');
 const socket = io(SOCKET_URL);
 
 function App() {
